@@ -120,6 +120,7 @@ response.close();
 #### JSESSIONID
 > Servlet API 中，用于保持会话的Cookie默认名为：JSESSIONID，值通常为难于伪造的较长随机字符串。JSESSIONID的生成通常应交由Servlet容器来实现，以避免安全问题。  
 > 测试发现默认情况下，Jetty生成的JSESSIONID(Cookie)，未指定HttpOnly属性，容易引发安全问题
+
 ```xml
 <!-- 在工程的/WEB-INF/web.xml中，可以配置SESSIONID的COOKIE配置 -->
 <session-config>
@@ -133,6 +134,7 @@ response.close();
     </cookie-config>
 </session-config>
 ```
+
 > 怎样解决Cookie禁用时的会话保持(Jetty/Tomcat)  
 > 怎样处理URL后面的JSESSIONID参数(未禁用Cookie的情况下，针对Jetty/Tomcat)
 
@@ -142,6 +144,7 @@ response.close();
 3. 此时正常用户登录，因为sessionid并未改变，所以攻击者在正常用户登录后访问，即可访问到正常用户的session信息，从而实现固定会话攻击
 
 解决办法：用户登录后，服务器重新为用户生成jessionid，具体见`LoginServlet`代码。
+
 ```java
 // 先注销session，后面将重新创建session，从页实现登录前后sessionid发生改变
 req.getSession().invalidate();
