@@ -51,6 +51,7 @@ public class OkHttpClientTest {
                     return cookies != null ? cookies : new ArrayList<Cookie>();
                 }
             })
+            // 配置DNS，用于测试多域名情况时，Cookie特性
             .dns(new Dns() {
                 @Override
                 public List<InetAddress> lookup(String s) throws UnknownHostException {
